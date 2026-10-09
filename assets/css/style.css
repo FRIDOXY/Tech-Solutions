@@ -1,0 +1,33 @@
+html, body { 
+    background-color: #f4f4f4; 
+} 
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px;
+}   
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+footer {
+    background-color: #000000;
+}
+
+.footer-text {
+    color: #ffffff;
+}
+
+.table-gauche {
+    width: 50%;
+    border-collapse: collapse;
+}
+
+.table-droite {
+    width: 50%;
+    border-collapse: collapse;
+}
