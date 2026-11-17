@@ -178,7 +178,7 @@ form textarea {
 form input[type="submit"] {
     padding: 10px 16px;
     border: 0;
-    background: #153f60;
+    background: #e67e22;
     color: #fff;
     cursor: pointer;
     font: inherit;
@@ -243,6 +243,7 @@ section h2 {
 .catalogue-page {
     width: min(100% - 48px, 1100px);
     margin: 24px auto 40px;
+    background-color: #c5ccd3;
 }
 
 .catalogue-page > h1 {
@@ -303,6 +304,10 @@ table.catalogue-table {
     width: 15%;
     height: auto;
     margin: 0 auto;
+}
+
+.erreur {
+    color: #b03a2e;
 }
 
 .home-news {
