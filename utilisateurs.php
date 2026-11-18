@@ -1,8 +1,22 @@
 <?php
+
+session_start();
+
+// Page réservée aux personnes connectées...
+if (!isset($_SESSION["id"])) {
+    header("Location: connexion.php");
+    exit;
+}
+// ... et, parmi elles, à l'administrateur
+if ($_SESSION["role"] != "admin") {
+    header("Location: espace.php");
+    exit;
+}
+
 include "assets/php/inc/infos.php";
 require "assets/php/inc/bdd.php";
 
-$requete = $pdo->query("SELECT prenom, nom, service, role FROM utilisateurs ORDER BY nom");
+$requete = $pdo->query("SELECT id, prenom, nom, service, role FROM utilisateurs ORDER BY nom");
 $utilisateurs = $requete->fetchAll();
 ?>
 <!DOCTYPE html>
@@ -28,6 +42,7 @@ $utilisateurs = $requete->fetchAll();
                     <th>Nom</th>
                     <th>Service</th>
                     <th>Rôle</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +52,12 @@ $utilisateurs = $requete->fetchAll();
                     <td><?php echo $u["nom"]; ?></td>
                     <td><?php echo $u["service"]; ?></td>
                     <td><?php echo $u["role"]; ?></td>
+                    <td>
+                    <form action="assets/php/supprimer.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $u["id"]; ?>">
+                        <button type="submit" class="bouton-supprimer">Supprimer</button>
+                    </form>
+                    </td>
                 </tr>
                 <?php } ?>
             </tbody>

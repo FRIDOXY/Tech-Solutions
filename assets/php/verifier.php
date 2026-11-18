@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "inc/infos.php";
 require "inc/bdd.php";
 
@@ -10,6 +11,17 @@ $motdepasse = $_POST["motdepasse"];
 $requete = $pdo->prepare("SELECT * FROM utilisateurs WHERE identifiant = ?");
 $requete->execute([$identifiant]);
 $utilisateur = $requete->fetch();
+
+
+if ($utilisateur && password_verify($motdepasse, $utilisateur["mot_de_passe"])) {
+    $_SESSION["id"] = $utilisateur["id"];
+    $_SESSION["prenom"] = $utilisateur["prenom"];
+    $_SESSION["nom"] = $utilisateur["nom"];
+    $_SESSION["service"] = $utilisateur["service"];
+    $_SESSION["role"] = $utilisateur["role"];
+    header("Location: espace.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,19 +31,14 @@ $utilisateur = $requete->fetch();
     <link rel="stylesheet" href="../css/style.css">
   </head>
   <body>
-    <?php include "inc/menu.php"; ?>
+    <?php include "inc/menu.php.php"; ?>
 
     <center><h1>Espace salariés</h1>
 
     <br></br>
 
-    <?php if ($utilisateur && password_verify($motdepasse, $utilisateur["mot_de_passe"])) { ?>
-      <p class="slogan">Bienvenue <?php echo $utilisateur["prenom"] . " " . $utilisateur["nom"]; ?> !</p>
-      <p>Vous êtes connecté au service <?php echo $utilisateur["service"]; ?>.</p>
-    <?php } else { ?>
-      <p class="erreur">Identifiant ou mot de passe incorrect.</p>
-      <p><a href="connexion.php">Réessayer</a></p>
-    <?php } ?>
+    <p class="erreur">Identifiant ou mot de passe incorrect.</p>
+    <p><a href="../../login.php">Réessayer</a></p>
 
     </center>
     <?php include "inc/pied.php"; ?>

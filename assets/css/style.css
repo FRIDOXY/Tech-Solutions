@@ -56,6 +56,11 @@ body {
     transition: background-color 0.15s ease;
 }
 
+.bouton-supprimer {
+  background-color: #b03a2e;
+  padding: 5px 12px;
+}
+
 .header-inner nav a:hover,
 .header-inner nav a:focus-visible {
     background: #24577d;
