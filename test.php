@@ -1,3 +1,4 @@
 <?php
-echo "tets";
+required "assets/php/inc/bdd.php"
+echo "ok";
 ?>
